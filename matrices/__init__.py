@@ -42,8 +42,13 @@ class Matrix():
                 __is_square__:   bool|None = (len(mat) == row) == (len(mat[0]) == col)
                 __is_identity__: bool|None = funcs.is_identity(mat)
 
-                __determinant__: float|None = funcs.determinant(mat)
+                if __is_identity__:
+                    __determinant__: float|None = 1
+                else:
+                    __determinant__: float|None = funcs.determinant(mat)
+
                 __transpose__:     list[list[float]]|None = funcs.transpose(mat, row, col)
+
                 if __is_square__:
                     __minors__:    list[list[float]]|None = funcs.minors(mat, row, col)
                     __cofactors__: list[list[float]]|None = funcs.cofactors(mat, row, col)
@@ -94,3 +99,5 @@ class Matrix():
     @staticmethod
     def new_from_mat_unsized(vec: list[list[float]], lazy_ini: bool = True):
         return Matrix(vec, len(vec), len(vec[0]), lazy_ini)
+
+del funcs
