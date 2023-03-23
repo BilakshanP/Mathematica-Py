@@ -3,6 +3,26 @@ import inner
 #def is_square(row, col) -> bool:
 #    return row == col
 
+def scalar_matrix_constructor(size: int, scalar_1: float = 1, scalar_2: float = 0) -> list[list[float]]:
+    if size <= 0:
+        raise ValueError(f"Size must be >= '0' but, {size} was provided.")
+
+    out_mat: list[list[float]] = []
+
+    for i in range(0, size):
+        tmp_mat: list[float] = []
+
+        for j in range(0, size):
+            if i == j:
+                tmp_mat.append(scalar_1)
+                continue
+
+            tmp_mat.append(scalar_2)
+        
+        out_mat.append(tmp_mat)
+    
+    return out_mat
+
 def is_identity(vec: list[list[float]]) -> bool:
     if len(vec) != len(vec[0]):
         return False
@@ -71,11 +91,11 @@ def cofactors(mat: list[list[float]], row: int, col: int) -> list[list[float]]:
     out_mat: list[list[float]] = []
     times: int = 1
 
-    for i1, j1 in enumerate(minors(mat, row, col)):
+    for i in minors(mat, row, col):
         tmp_mat: list[float] = []
 
-        for i2, j2 in enumerate(j1):
-            tmp_mat.append(j2 * times)
+        for j in i:
+            tmp_mat.append(j * times)
 
             times *= -1
         
